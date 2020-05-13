@@ -27,10 +27,10 @@ class Order
      */
     public function toString()
     {
-        $out = $this->_food . ", ";
-        $out .= $this->_meal . ", ";
+        $out = $this->_food . " for ";
+        $out .= $this->_meal . " with ";
         if(!empty($this->_condiments)){
-            $out .= implode($this->_condiments);
+            $out .= implode($this->_condiments, " and ");
         }
 
         return $out;
@@ -88,8 +88,8 @@ class Order
 
 
 //testing only
-$order = new Order("pizza", "lunch", array("cheese"));
-echo $order->toString() . "<br>";
-
-$order2 = new Order();
-echo $order2->toString() . "<br>";
+//$order = new Order("pizza", "lunch", array("cheese"));
+//echo $order->toString() . "<br>";
+//
+//$order2 = new Order();
+//echo $order2->toString() . "<br>";

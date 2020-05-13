@@ -4,14 +4,14 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-//Start a session
-session_start();
-
 //Require the autoload file
 require_once('vendor/autoload.php');
 require_once('model/dataLayer.php');
 require_once('model/validate.php');
-require_once('classes/order.php');
+//require_once('classes/order.php'); //not necessary because composer.json "autoload"
+
+//Start a session AFTER requiring autoload
+session_start();
 
 //Instantiate the F3 Base class
 $f3 = Base::instance();
@@ -90,8 +90,15 @@ $f3->route('GET|POST /order', function($f3){
         //data is valid
         if(empty($f3->get('errors'))) {
 
-            $_SESSION['food'] = $_POST['food'];
-            $_SESSION['meal'] = $_POST['meal'];
+            //create an order object
+            $order = new Order();
+            $order->setFood($_POST['food']);
+            $order->setMeal($_POST['meal']);
+
+            //store the data in session array
+            $_SESSION['order'] = $order; //store order object instead of individual elements
+            //$_SESSION['food'] = $_POST['food'];
+            //$_SESSION['meal'] = $_POST['meal'];
 
             //redirect to next order page
             $f3->reroute('order2');
@@ -117,7 +124,9 @@ $f3->route('GET|POST /order2', function($f3){
     //if form has been submitted
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        $_SESSION['condiments'] = $_POST['condiment'];
+        //add the data to the object in the sesion array
+        $_SESSION['order']->setCondiments($_POST['condiment']);
+        //$_SESSION['condiments'] = $_POST['condiment'];
 
         //redirect to order summary page
         $f3->reroute('summary');

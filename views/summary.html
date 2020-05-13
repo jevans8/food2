@@ -6,10 +6,10 @@
 </head>
 <body>
 
-<h1>Thank you for ordering {{ $_SESSION['food'] }} for {{ @SESSION.meal }}</h1>
+<h3>Thank you for ordering {{ @SESSION.order->getFood() }} for {{ @SESSION.order->getMeal() }}</h3>
 
-<check if="{{ isset(@SESSION.condiments) }}">
-    <p>Condiments: {{ implode(@SESSION.condiments, ", ") }}</p>
+<check if="{{ !empty(@SESSION.order->getCondiments()) }}">
+    <p>Condiments: {{ implode(@SESSION.order->getCondiments(), ", ") }}</p>
 </check>
 
 <a href="order">Place Another Order</a><br>
