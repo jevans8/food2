@@ -11,6 +11,7 @@ session_start();
 require_once('vendor/autoload.php');
 require_once('model/dataLayer.php');
 require_once('model/validate.php');
+require_once('classes/order.php');
 
 //Instantiate the F3 Base class
 $f3 = Base::instance();
