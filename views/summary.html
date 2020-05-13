@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <include href="includes/header.htm"></include>
+    <title>Order Summary</title>
+</head>
+<body>
+
+<h1>Thank you for ordering {{ $_SESSION['food'] }} for {{ @SESSION.meal }}</h1>
+
+<check if="{{ isset(@SESSION.condiments) }}">
+    <p>Condiments: {{ implode(@SESSION.condiments, ", ") }}</p>
+</check>
+
+<a href="order">Place Another Order</a><br>
+<a href="{{ @BASE }}">Home page</a>
+
+</body>
+</html>
